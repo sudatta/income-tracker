@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Expense Tracker{% endblock %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Dashboard</h2>
+
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Weekly Summary (Last 7 Days)</h5>
+                <canvas id="weeklyChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Monthly Summary (Last 6 Months)</h5>
+                <canvas id="monthlyChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-2">
+    <a href="{{ url_for('main.journal') }}" class="btn btn-primary">Add Journal Entry</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const weeklyData = {{ weekly_data | safe }};
+    const monthlyData = {{ monthly_data | safe }};
+
+    const chartColors = {
+        expenses: { bg: 'rgba(220, 53, 69, 0.7)', border: 'rgb(220, 53, 69)' },
+        income: { bg: 'rgba(25, 135, 84, 0.7)', border: 'rgb(25, 135, 84)' },
+        withdrawals: { bg: 'rgba(255, 193, 7, 0.7)', border: 'rgb(255, 193, 7)' },
+    };
+
+    function createChart(canvasId, data) {
+        return new Chart(document.getElementById(canvasId), {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: [
+                    {
+                        label: 'Income',
+                        data: data.income,
+                        backgroundColor: chartColors.income.bg,
+                        borderColor: chartColors.income.border,
+                        borderWidth: 1,
+                    },
+                    {
+                        label: 'Expenses',
+                        data: data.expenses,
+                        backgroundColor: chartColors.expenses.bg,
+                        borderColor: chartColors.expenses.border,
+                        borderWidth: 1,
+                    },
+                    {
+                        label: 'Withdrawals',
+                        data: data.withdrawals,
+                        backgroundColor: chartColors.withdrawals.bg,
+                        borderColor: chartColors.withdrawals.border,
+                        borderWidth: 1,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) { return '\u20B9' + value; }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': \u20B9' + context.parsed.y.toFixed(2);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    createChart('weeklyChart', weeklyData);
+    createChart('monthlyChart', monthlyData);
+</script>
+{% endblock %}

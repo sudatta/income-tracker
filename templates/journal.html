@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Journal Entry - Expense Tracker{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="card-title mb-4">Journal Entry</h3>
+
+                {% if existing_entry %}
+                <div class="alert alert-warning">
+                    <strong>Existing entry found for {{ existing_entry.date.strftime('%Y-%m-%d') }}:</strong>
+                    <ul class="mb-0 mt-2">
+                        <li>Expenses: ₹{{ "%.2f"|format(existing_entry.expenses) }}</li>
+                        <li>Income: ₹{{ "%.2f"|format(existing_entry.income) }}</li>
+                        <li>Withdrawals: ₹{{ "%.2f"|format(existing_entry.withdrawals) }}</li>
+                        {% if existing_entry.notes %}
+                        <li>Notes: {{ existing_entry.notes }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <form method="POST" id="journalForm">
+                    {{ form.hidden_tag() }}
+
+                    {% if existing_entry %}
+                    <input type="hidden" name="confirm_update" value="yes">
+                    {% endif %}
+
+                    <div class="mb-3">
+                        {{ form.date.label(class="form-label") }}
+                        {{ form.date(class="form-control", id="entryDate") }}
+                        {% for error in form.date.errors %}
+                            <div class="text-danger small mt-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div id="existingEntryBanner" class="alert alert-info d-none">
+                        An entry already exists for this date. Submitting will prompt you to confirm the update.
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.expenses.label(class="form-label") }}
+                        <div class="input-group">
+                            <span class="input-group-text">₹</span>
+                            {{ form.expenses(class="form-control", step="0.01", min="0") }}
+                        </div>
+                        {% for error in form.expenses.errors %}
+                            <div class="text-danger small mt-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.income.label(class="form-label") }}
+                        <div class="input-group">
+                            <span class="input-group-text">₹</span>
+                            {{ form.income(class="form-control", step="0.01", min="0") }}
+                        </div>
+                        {% for error in form.income.errors %}
+                            <div class="text-danger small mt-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.withdrawals.label(class="form-label") }}
+                        <div class="input-group">
+                            <span class="input-group-text">₹</span>
+                            {{ form.withdrawals(class="form-control", step="0.01", min="0") }}
+                        </div>
+                        {% for error in form.withdrawals.errors %}
+                            <div class="text-danger small mt-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.notes.label(class="form-label") }}
+                        {{ form.notes(class="form-control", rows="3", placeholder="Optional notes...") }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        {% if existing_entry %}
+                            Confirm Update
+                        {% else %}
+                            Save Entry
+                        {% endif %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const dateInput = document.getElementById('entryDate');
+    const banner = document.getElementById('existingEntryBanner');
+
+    dateInput.addEventListener('change', async function() {
+        const dateVal = this.value;
+        if (!dateVal) return;
+
+        try {
+            const resp = await fetch('/api/entry/' + dateVal);
+            const data = await resp.json();
+            if (data.exists) {
+                banner.classList.remove('d-none');
+            } else {
+                banner.classList.add('d-none');
+            }
+        } catch (e) {
+            banner.classList.add('d-none');
+        }
+    });
+</script>
+{% endblock %}
