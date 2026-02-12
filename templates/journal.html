@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}Journal Entry - Expense Tracker{% endblock %}
+{% block title %}{{ t('title_journal') }}{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-7">
         <div class="card shadow-sm">
             <div class="card-body p-4">
-                <h3 class="card-title mb-4">Journal Entry</h3>
+                <h3 class="card-title mb-4">{{ t('journal_title') }}</h3>
 
                 {% if existing_entry %}
                 <div class="alert alert-warning">
-                    <strong>Existing entry found for {{ existing_entry.date.strftime('%Y-%m-%d') }}:</strong>
+                    <strong>{{ t('existing_entry_for', date=existing_entry.date.strftime('%Y-%m-%d')) }}</strong>
                     <ul class="mb-0 mt-2">
-                        <li>Income: ₹{{ "%.2f"|format(existing_entry.income) }}</li>
-                        <li>Expenses: ₹{{ "%.2f"|format(existing_entry.expenses) }}</li>
-                        <li>Withdrawals: ₹{{ "%.2f"|format(existing_entry.withdrawals) }}</li>
+                        <li>{{ t('income_label') }}: ₹{{ "%.2f"|format(existing_entry.income) }}</li>
+                        <li>{{ t('expenses_label') }}: ₹{{ "%.2f"|format(existing_entry.expenses) }}</li>
+                        <li>{{ t('withdrawals_label') }}: ₹{{ "%.2f"|format(existing_entry.withdrawals) }}</li>
                         {% if existing_entry.notes %}
-                        <li>Notes: {{ existing_entry.notes }}</li>
+                        <li>{{ t('notes_label') }}: {{ existing_entry.notes }}</li>
                         {% endif %}
                     </ul>
                 </div>
@@ -31,7 +31,7 @@
                     {% endif %}
 
                     <div class="mb-3">
-                        {{ form.date.label(class="form-label") }}
+                        <label class="form-label" for="date">{{ t('date_label') }}</label>
                         {{ form.date(class="form-control", id="entryDate") }}
                         {% for error in form.date.errors %}
                             <div class="text-danger small mt-1">{{ error }}</div>
@@ -39,11 +39,11 @@
                     </div>
 
                     <div id="existingEntryBanner" class="alert alert-info d-none">
-                        An entry already exists for this date. Submitting will prompt you to confirm the update.
+                        {{ t('entry_exists_banner') }}
                     </div>
 
                     <div class="mb-3">
-                        {{ form.income.label(class="form-label") }}
+                        <label class="form-label" for="income">{{ t('income_label') }}</label>
                         <div class="input-group">
                             <span class="input-group-text">₹</span>
                             {{ form.income(class="form-control", step="0.01", min="0", style="background-color: rgba(144, 238, 144, 0.3)") }}
@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="mb-3">
-                        {{ form.expenses.label(class="form-label") }}
+                        <label class="form-label" for="expenses">{{ t('expenses_label') }}</label>
                         <div class="input-group">
                             <span class="input-group-text">₹</span>
                             {{ form.expenses(class="form-control", step="0.01", min="0", style="background-color: rgba(255, 99, 132, 0.3)") }}
@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="mb-3">
-                        {{ form.withdrawals.label(class="form-label") }}
+                        <label class="form-label" for="withdrawals">{{ t('withdrawals_label') }}</label>
                         <div class="input-group">
                             <span class="input-group-text">₹</span>
                             {{ form.withdrawals(class="form-control", step="0.01", min="0", style="background-color: rgba(255, 235, 59, 0.3)") }}
@@ -76,15 +76,15 @@
                     </div>
 
                     <div class="mb-3">
-                        {{ form.notes.label(class="form-label") }}
-                        {{ form.notes(class="form-control", rows="3", placeholder="Optional notes...") }}
+                        <label class="form-label" for="notes">{{ t('notes_label') }}</label>
+                        {{ form.notes(class="form-control", rows="3", placeholder=t('optional_notes')) }}
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">
                         {% if existing_entry %}
-                            Confirm Update
+                            {{ t('confirm_update') }}
                         {% else %}
-                            Save Entry
+                            {{ t('save_entry') }}
                         {% endif %}
                     </button>
                 </form>

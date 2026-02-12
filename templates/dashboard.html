@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard - Expense Tracker{% endblock %}
+{% block title %}{{ t('title_dashboard') }}{% endblock %}
 
 {% block head %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 {% endblock %}
 
 {% block content %}
-<h2 class="mb-4">Dashboard</h2>
+<h2 class="mb-4">{{ t('dashboard_title') }}</h2>
 
 <div class="row">
     <div class="col-lg-6 mb-4">
         <div class="card shadow-sm">
             <div class="card-body">
-                <h5 class="card-title">Weekly Summary (Last 7 Days)</h5>
+                <h5 class="card-title">{{ t('weekly_summary') }}</h5>
                 <canvas id="weeklyChart"></canvas>
             </div>
         </div>
@@ -21,7 +21,7 @@
     <div class="col-lg-6 mb-4">
         <div class="card shadow-sm">
             <div class="card-body">
-                <h5 class="card-title">Monthly Summary (Last 6 Months)</h5>
+                <h5 class="card-title">{{ t('monthly_summary') }}</h5>
                 <canvas id="monthlyChart"></canvas>
             </div>
         </div>
@@ -29,7 +29,7 @@
 </div>
 
 <div class="text-center mt-2">
-    <a href="{{ url_for('main.journal') }}" class="btn btn-primary">Add Journal Entry</a>
+    <a href="{{ url_for('main.journal') }}" class="btn btn-primary">{{ t('add_journal_entry') }}</a>
 </div>
 {% endblock %}
 
@@ -52,28 +52,28 @@
                 labels: data.labels,
                 datasets: [
                     {
-                        label: 'Income',
+                        label: '{{ t("chart_income") }}',
                         data: data.income,
                         backgroundColor: chartColors.income.bg,
                         borderColor: chartColors.income.border,
                         borderWidth: 1,
                     },
                     {
-                        label: 'Expenses',
+                        label: '{{ t("chart_expenses") }}',
                         data: data.expenses,
                         backgroundColor: chartColors.expenses.bg,
                         borderColor: chartColors.expenses.border,
                         borderWidth: 1,
                     },
                     {
-                        label: 'Withdrawals',
+                        label: '{{ t("chart_withdrawals") }}',
                         data: data.withdrawals,
                         backgroundColor: chartColors.withdrawals.bg,
                         borderColor: chartColors.withdrawals.border,
                         borderWidth: 1,
                     },
                     {
-                        label: 'Net Income',
+                        label: '{{ t("chart_net_income") }}',
                         data: data.net_income,
                         type: 'line',
                         backgroundColor: chartColors.netIncome.bg,

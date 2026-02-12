@@ -1,12 +1,20 @@
 import json
 from datetime import date, timedelta
-from flask import Blueprint, render_template, redirect, url_for, flash, jsonify, request
+from flask import Blueprint, render_template, redirect, url_for, flash, jsonify, request, session
 from flask_login import login_required, current_user
-from app import db
+from app import db, t
+from translations import SUPPORTED_LANGUAGES
 from models import JournalEntry
 from forms import JournalEntryForm
 
 main_bp = Blueprint("main", __name__)
+
+
+@main_bp.route("/set-language/<lang>")
+def set_language(lang):
+    if lang in SUPPORTED_LANGUAGES:
+        session["lang"] = lang
+    return redirect(request.referrer or url_for("main.dashboard"))
 
 
 @main_bp.route("/")
@@ -112,16 +120,12 @@ def journal():
                 existing.withdrawals = form.withdrawals.data or 0.0
                 existing.notes = form.notes.data
                 db.session.commit()
-                flash(f"Entry for {entry_date} updated successfully.", "success")
+                flash(t("flash_entry_updated", date=entry_date), "success")
                 return redirect(url_for("main.journal"))
             else:
                 # Show confirmation prompt
                 existing_entry = existing
-                flash(
-                    f"An entry already exists for {entry_date}. "
-                    "Review the existing values below and confirm to update.",
-                    "warning",
-                )
+                flash(t("flash_entry_exists", date=entry_date), "warning")
                 return render_template(
                     "journal.html", form=form, existing_entry=existing_entry
                 )
@@ -136,7 +140,7 @@ def journal():
             )
             db.session.add(entry)
             db.session.commit()
-            flash(f"Entry for {entry_date} saved successfully.", "success")
+            flash(t("flash_entry_saved", date=entry_date), "success")
             return redirect(url_for("main.journal"))
 
     return render_template("journal.html", form=form, existing_entry=existing_entry)
