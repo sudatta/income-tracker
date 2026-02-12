@@ -29,15 +29,20 @@ def dashboard():
         "expenses": [],
         "income": [],
         "withdrawals": [],
+        "net_income": [],
     }
     entries_by_date = {e.date: e for e in weekly_entries}
     for i in range(7):
         d = week_start + timedelta(days=i)
         weekly_data["labels"].append(d.strftime("%a %m/%d"))
         entry = entries_by_date.get(d)
-        weekly_data["expenses"].append(entry.expenses if entry else 0)
-        weekly_data["income"].append(entry.income if entry else 0)
-        weekly_data["withdrawals"].append(entry.withdrawals if entry else 0)
+        inc = entry.income if entry else 0
+        exp = entry.expenses if entry else 0
+        wdr = entry.withdrawals if entry else 0
+        weekly_data["income"].append(inc)
+        weekly_data["expenses"].append(exp)
+        weekly_data["withdrawals"].append(wdr)
+        weekly_data["net_income"].append(inc - (exp + wdr))
 
     # Monthly data: last 6 months
     monthly_data = {
@@ -45,6 +50,7 @@ def dashboard():
         "expenses": [],
         "income": [],
         "withdrawals": [],
+        "net_income": [],
     }
     for i in range(5, -1, -1):
         # Calculate month offset
@@ -71,9 +77,13 @@ def dashboard():
             .all()
         )
 
-        monthly_data["expenses"].append(sum(e.expenses for e in month_entries))
-        monthly_data["income"].append(sum(e.income for e in month_entries))
-        monthly_data["withdrawals"].append(sum(e.withdrawals for e in month_entries))
+        total_inc = sum(e.income for e in month_entries)
+        total_exp = sum(e.expenses for e in month_entries)
+        total_wdr = sum(e.withdrawals for e in month_entries)
+        monthly_data["income"].append(total_inc)
+        monthly_data["expenses"].append(total_exp)
+        monthly_data["withdrawals"].append(total_wdr)
+        monthly_data["net_income"].append(total_inc - (total_exp + total_wdr))
 
     return render_template(
         "dashboard.html",
