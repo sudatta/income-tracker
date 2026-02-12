@@ -13,8 +13,8 @@
                 <div class="alert alert-warning">
                     <strong>Existing entry found for {{ existing_entry.date.strftime('%Y-%m-%d') }}:</strong>
                     <ul class="mb-0 mt-2">
-                        <li>Expenses: ₹{{ "%.2f"|format(existing_entry.expenses) }}</li>
                         <li>Income: ₹{{ "%.2f"|format(existing_entry.income) }}</li>
+                        <li>Expenses: ₹{{ "%.2f"|format(existing_entry.expenses) }}</li>
                         <li>Withdrawals: ₹{{ "%.2f"|format(existing_entry.withdrawals) }}</li>
                         {% if existing_entry.notes %}
                         <li>Notes: {{ existing_entry.notes }}</li>
@@ -43,23 +43,23 @@
                     </div>
 
                     <div class="mb-3">
-                        {{ form.expenses.label(class="form-label") }}
+                        {{ form.income.label(class="form-label") }}
                         <div class="input-group">
                             <span class="input-group-text">₹</span>
-                            {{ form.expenses(class="form-control", step="0.01", min="0") }}
+                            {{ form.income(class="form-control", step="0.01", min="0", style="background-color: rgba(144, 238, 144, 0.3)") }}
                         </div>
-                        {% for error in form.expenses.errors %}
+                        {% for error in form.income.errors %}
                             <div class="text-danger small mt-1">{{ error }}</div>
                         {% endfor %}
                     </div>
 
                     <div class="mb-3">
-                        {{ form.income.label(class="form-label") }}
+                        {{ form.expenses.label(class="form-label") }}
                         <div class="input-group">
                             <span class="input-group-text">₹</span>
-                            {{ form.income(class="form-control", step="0.01", min="0") }}
+                            {{ form.expenses(class="form-control", step="0.01", min="0", style="background-color: rgba(255, 99, 132, 0.3)") }}
                         </div>
-                        {% for error in form.income.errors %}
+                        {% for error in form.expenses.errors %}
                             <div class="text-danger small mt-1">{{ error }}</div>
                         {% endfor %}
                     </div>
@@ -68,7 +68,7 @@
                         {{ form.withdrawals.label(class="form-label") }}
                         <div class="input-group">
                             <span class="input-group-text">₹</span>
-                            {{ form.withdrawals(class="form-control", step="0.01", min="0") }}
+                            {{ form.withdrawals(class="form-control", step="0.01", min="0", style="background-color: rgba(255, 235, 59, 0.3)") }}
                         </div>
                         {% for error in form.withdrawals.errors %}
                             <div class="text-danger small mt-1">{{ error }}</div>
