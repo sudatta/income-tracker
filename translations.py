@@ -2,6 +2,7 @@ SUPPORTED_LANGUAGES = {
     "en": "English",
     "hi": "हिन्दी",
     "kn": "ಕನ್ನಡ",
+    "ml": "മലയാളം",
 }
 
 DEFAULT_LANGUAGE = "en"
@@ -9,7 +10,7 @@ DEFAULT_LANGUAGE = "en"
 TRANSLATIONS = {
     "en": {
         # Common / Navbar
-        "app_name": "Expense Tracker",
+        "app_name": "Income Tracker",
         "menu": "Menu",
         "nav_dashboard": "Dashboard",
         "nav_journal": "Journal",
@@ -75,14 +76,14 @@ TRANSLATIONS = {
         "flash_login_required": "Please log in to access this page.",
 
         # Page titles
-        "title_dashboard": "Dashboard - Expense Tracker",
-        "title_journal": "Journal Entry - Expense Tracker",
-        "title_login": "Login - Expense Tracker",
-        "title_register": "Register - Expense Tracker",
+        "title_dashboard": "Dashboard - Income Tracker",
+        "title_journal": "Journal Entry - Income Tracker",
+        "title_login": "Login - Income Tracker",
+        "title_register": "Register - Income Tracker",
     },
     "hi": {
         # Common / Navbar
-        "app_name": "व्यय ट्रैकर",
+        "app_name": "आय ट्रैकर",
         "menu": "मेनू",
         "nav_dashboard": "डैशबोर्ड",
         "nav_journal": "जर्नल",
@@ -148,14 +149,14 @@ TRANSLATIONS = {
         "flash_login_required": "कृपया इस पृष्ठ तक पहुँचने के लिए लॉग इन करें।",
 
         # Page titles
-        "title_dashboard": "डैशबोर्ड - व्यय ट्रैकर",
-        "title_journal": "जर्नल प्रविष्टि - व्यय ट्रैकर",
-        "title_login": "लॉग इन - व्यय ट्रैकर",
-        "title_register": "पंजीकरण - व्यय ट्रैकर",
+        "title_dashboard": "डैशबोर्ड - आय ट्रैकर",
+        "title_journal": "जर्नल प्रविष्टि - आय ट्रैकर",
+        "title_login": "लॉग इन - आय ट्रैकर",
+        "title_register": "पंजीकरण - आय ट्रैकर",
     },
     "kn": {
         # Common / Navbar
-        "app_name": "ವೆಚ್ಚ ಟ್ರ್ಯಾಕರ್",
+        "app_name": "ಆದಾಯ ಟ್ರ್ಯಾಕರ್",
         "menu": "ಮೆನು",
         "nav_dashboard": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
         "nav_journal": "ಜರ್ನಲ್",
@@ -221,9 +222,82 @@ TRANSLATIONS = {
         "flash_login_required": "ದಯವಿಟ್ಟು ಈ ಪುಟವನ್ನು ಪ್ರವೇಶಿಸಲು ಲಾಗ್ ಇನ್ ಮಾಡಿ.",
 
         # Page titles
-        "title_dashboard": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ - ವೆಚ್ಚ ಟ್ರ್ಯಾಕರ್",
-        "title_journal": "ಜರ್ನಲ್ ನಮೂದು - ವೆಚ್ಚ ಟ್ರ್ಯಾಕರ್",
-        "title_login": "ಲಾಗ್ ಇನ್ - ವೆಚ್ಚ ಟ್ರ್ಯಾಕರ್",
-        "title_register": "ನೋಂದಣಿ - ವೆಚ್ಚ ಟ್ರ್ಯಾಕರ್",
+        "title_dashboard": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ - ಆದಾಯ ಟ್ರ್ಯಾಕರ್",
+        "title_journal": "ಜರ್ನಲ್ ನಮೂದು - ಆದಾಯ ಟ್ರ್ಯಾಕರ್",
+        "title_login": "ಲಾಗ್ ಇನ್ - ಆದಾಯ ಟ್ರ್ಯಾಕರ್",
+        "title_register": "ನೋಂದಣಿ - ಆದಾಯ ಟ್ರ್ಯಾಕರ್",
+    },
+    "ml": {
+        # Common / Navbar
+        "app_name": "വരുമാനം ട്രാക്കർ",
+        "menu": "മെനു",
+        "nav_dashboard": "ഡാഷ്‌ബോർഡ്",
+        "nav_journal": "ജേർണൽ",
+        "nav_logout": "ലോഗ് ഔട്ട്",
+        "nav_login": "ലോഗ് ഇൻ",
+        "nav_register": "രജിസ്റ്റർ",
+
+        # Dashboard
+        "dashboard_title": "ഡാഷ്‌ബോർഡ്",
+        "weekly_summary": "പ്രതിവാര സംഗ്രഹം (കഴിഞ്ഞ 7 ദിവസം)",
+        "monthly_summary": "മാസിക സംഗ്രഹം (കഴിഞ്ഞ 6 മാസം)",
+        "add_journal_entry": "ജേർണൽ എൻട്രി ചേർക്കുക",
+        "chart_income": "വരുമാനം",
+        "chart_expenses": "ചെലവുകൾ",
+        "chart_withdrawals": "പിൻവലിക്കലുകൾ",
+        "chart_net_income": "അറ്റ വരുമാനം",
+
+        # Journal
+        "journal_title": "ജേർണൽ എൻട്രി",
+        "existing_entry_for": "{date} തീയതിക്കുള്ള നിലവിലുള്ള എൻട്രി:",
+        "income_label": "വരുമാനം",
+        "expenses_label": "ചെലവുകൾ",
+        "withdrawals_label": "പിൻവലിക്കലുകൾ",
+        "notes_label": "കുറിപ്പുകൾ",
+        "date_label": "തീയതി",
+        "entry_exists_banner": "ഈ തീയതിക്ക് ഒരു എൻട്രി നിലവിലുണ്ട്. സമർപ്പിച്ചാൽ അപ്‌ഡേറ്റ് സ്ഥിരീകരിക്കാൻ ആവശ്യപ്പെടും.",
+        "optional_notes": "ഐച്ഛിക കുറിപ്പുകൾ...",
+        "confirm_update": "അപ്‌ഡേറ്റ് സ്ഥിരീകരിക്കുക",
+        "save_entry": "എൻട്രി സേവ് ചെയ്യുക",
+
+        # Login
+        "login_title": "ലോഗ് ഇൻ",
+        "your_username": "നിങ്ങളുടെ ഉപയോക്തൃനാമം",
+        "your_password": "നിങ്ങളുടെ പാസ്‌വേഡ്",
+        "login_button": "ലോഗ് ഇൻ",
+        "no_account": "അക്കൗണ്ട് ഇല്ലേ?",
+        "register_link": "രജിസ്റ്റർ ചെയ്യുക",
+
+        # Register
+        "create_account": "അക്കൗണ്ട് ഉണ്ടാക്കുക",
+        "choose_username": "ഒരു ഉപയോക്തൃനാമം തിരഞ്ഞെടുക്കുക",
+        "min_chars": "കുറഞ്ഞത് 6 അക്ഷരങ്ങൾ",
+        "reenter_password": "പാസ്‌വേഡ് വീണ്ടും നൽകുക",
+        "register_button": "രജിസ്റ്റർ ചെയ്യുക",
+        "have_account": "ഇതിനകം അക്കൗണ്ട് ഉണ്ടോ?",
+        "login_link": "ലോഗ് ഇൻ ചെയ്യുക",
+
+        # Form labels
+        "form_username": "ഉപയോക്തൃനാമം",
+        "form_password": "പാസ്‌വേഡ്",
+        "form_confirm_password": "പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക",
+
+        # Validation
+        "username_taken": "ഉപയോക്തൃനാമം ഇതിനകം ഉപയോഗിക്കപ്പെട്ടിരിക്കുന്നു.",
+
+        # Flash messages
+        "flash_register_success": "രജിസ്‌ട്രേഷൻ വിജയകരമായി. ദയവായി ലോഗ് ഇൻ ചെയ്യുക.",
+        "flash_invalid_credentials": "അസാധുവായ ഉപയോക്തൃനാമം അല്ലെങ്കിൽ പാസ്‌വേഡ്.",
+        "flash_logged_out": "നിങ്ങൾ ലോഗ് ഔട്ട് ചെയ്തു.",
+        "flash_entry_updated": "{date} തീയതിയിലെ എൻട്രി വിജയകരമായി അപ്‌ഡേറ്റ് ചെയ്തു.",
+        "flash_entry_exists": "{date} തീയതിക്ക് ഒരു എൻട്രി നിലവിലുണ്ട്. താഴെയുള്ള മൂല്യങ്ങൾ പരിശോധിച്ച് അപ്‌ഡേറ്റ് സ്ഥിരീകരിക്കുക.",
+        "flash_entry_saved": "{date} തീയതിയിലെ എൻട്രി വിജയകരമായി സേവ് ചെയ്തു.",
+        "flash_login_required": "ഈ പേജ് ആക്‌സസ് ചെയ്യാൻ ദയവായി ലോഗ് ഇൻ ചെയ്യുക.",
+
+        # Page titles
+        "title_dashboard": "ഡാഷ്‌ബോർഡ് - വരുമാനം ട്രാക്കർ",
+        "title_journal": "ജേർണൽ എൻട്രി - വരുമാനം ട്രാക്കർ",
+        "title_login": "ലോഗ് ഇൻ - വരുമാനം ട്രാക്കർ",
+        "title_register": "രജിസ്റ്റർ - വരുമാനം ട്രാക്കർ",
     },
 }

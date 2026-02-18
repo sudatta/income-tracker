@@ -4,6 +4,7 @@
 
 {% block head %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -91,7 +92,6 @@
                 responsive: true,
                 scales: {
                     y: {
-                        beginAtZero: true,
                         ticks: {
                             callback: function(value) { return '\u20B9' + value; }
                         }
@@ -102,6 +102,17 @@
                         callbacks: {
                             label: function(context) {
                                 return context.dataset.label + ': \u20B9' + context.parsed.y.toFixed(2);
+                            }
+                        }
+                    },
+                    annotation: {
+                        annotations: {
+                            zeroLine: {
+                                type: 'line',
+                                yMin: 0,
+                                yMax: 0,
+                                borderColor: 'rgb(220, 53, 69)',
+                                borderWidth: 2,
                             }
                         }
                     }
